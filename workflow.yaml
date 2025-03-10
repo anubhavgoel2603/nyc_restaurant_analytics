@@ -1,0 +1,26 @@
+resources:
+  jobs:
+    NYC_Restaurant_Analytics_Pipeline:
+      name: NYC Restaurant Analytics Pipeline
+      tasks:
+        - task_key: Bronze_Task
+          notebook_task:
+            notebook_path: /Workspace/Users/anubhav_1740636195097@npnexusiqsolutions.onmicrosoft.com/nyc_restaurant_analytics/03-bronze
+            source: WORKSPACE
+          existing_cluster_id: 0303-094643-weyxekss
+        - task_key: Silver_Task
+          depends_on:
+            - task_key: Bronze_Task
+          notebook_task:
+            notebook_path: /Workspace/Users/anubhav_1740636195097@npnexusiqsolutions.onmicrosoft.com/nyc_restaurant_analytics/04-silver
+            source: WORKSPACE
+          existing_cluster_id: 0303-094643-weyxekss
+        - task_key: Gold_Task
+          depends_on:
+            - task_key: Silver_Task
+          notebook_task:
+            notebook_path: /Workspace/Users/anubhav_1740636195097@npnexusiqsolutions.onmicrosoft.com/nyc_restaurant_analytics/05-gold
+            source: WORKSPACE
+          existing_cluster_id: 0303-094643-weyxekss
+      queue:
+        enabled: true
